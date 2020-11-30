@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<title>Best Telephone UX</title>
+		<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="title" content="Best Telephone UX" />
+        <meta name="description" content="Best Telephone UX designed you have ever seen">
+
+        <meta name="og:title" content="Best Telephone UX" />
+        <meta name="og:description" content="Best Telephone UX designed you have ever seen">
+        <meta name="og:image" content="https://phone.saltyaom.com/dame_dane.webp" />
+        <meta name="og:image:width" content="540" />
+        <meta name="og:image:width" content="339" />
+		<script>
+			const id = (id) => document.getElementById(id),
+				addEvent = (el, e, fn) => el.addEventListener(e, fn)
+
+			const genTel = (e) => {
+					if (e) e.preventDefault()
+
+					let tel = '0' + (Math.random() * 999999999).toFixed(0)
+					id('phone-number').textContent = tel
+				},
+				showConfirmation = (e) => {
+					let tel = id('phone-number').textContent
+					let confirmation = confirm(`Is ${tel} your number?`)
+
+					e.preventDefault()
+
+					if (!confirmation) return
+
+					id('dame-dane').style.display = 'block'
+
+					let previousTel = localStorage.getItem('tel')
+					if (previousTel && previousTel !== tel) {
+						alert(
+							"Sorry, the number you're sending doesn't match the previous one you sent."
+						)
+						alert(
+							'Please make sure you sent the same number you sent before'
+						)
+
+						return
+					}
+
+					alert('Sorry, we accidentally put the wrong number.')
+					alert('Please add your number again.')
+
+					genTel()
+
+					localStorage.setItem('tel', tel)
+				}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				genTel()
+
+				addEvent(id('regen'), 'click', genTel)
+
+				addEvent(id('send'), 'click', showConfirmation)
+			})
+		</script>
+		<style>
+			* {
+				font-family: 'Comic Sans MS';
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Is this your phone number?</h1>
+		<form id="form">
+			<label>Please enter your phone number</label>
+			<p id="phone-number"></p>
+			<a href="https://youtu.be/GMlsMM9ob8g?t=66">
+				<img
+					id="dame-dane"
+					src="/dame_dane.webp"
+					alt="Dame Dane"
+					style="display: none"
+				/>
+			</a>
+			<button id="regen">This is not my phone number</button>
+			<br />
+			<br />
+			<button id="send">This is my phone number</button>
+		</form>
+
+		<br />
+		<small
+			>Built with <3 by
+			<a href="https://github.com/SaltyAom">SaltyAom</a></small
+		>
+	</body>
+</html>
